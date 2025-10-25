@@ -3,8 +3,8 @@ generate_seed.py
 -----------------
 Creates a simulated dataset for OSU Thompson Library.
 
-Floors 1-4  → 'group' layouts (individual + duo + group-of-4 + rooms)
-Floors 5-11 → 'quiet' layouts (mostly individual + duo + some 4-seaters)
+Floors 1-4  'group' layouts (individual + duo + group-of-4 + rooms)
+Floors 5-11 'quiet' layouts (mostly individual + duo + some 4-seaters)
 
 Output: data/seedData.json
 """
