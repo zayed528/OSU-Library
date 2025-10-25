@@ -3,8 +3,8 @@ generate_seed.py
 -----------------
 Creates a simulated dataset for OSU Thompson Library.
 
-Floors 1–4  → 'group' layouts (individual + duo + group-of-4 + rooms)
-Floors 5–11 → 'quiet' layouts (mostly individual + duo + some 4-seaters)
+Floors 1-4  → 'group' layouts (individual + duo + group-of-4 + rooms)
+Floors 5-11 → 'quiet' layouts (mostly individual + duo + some 4-seaters)
 
 Output: data/seedData.json
 """
@@ -12,15 +12,15 @@ Output: data/seedData.json
 import json
 from pathlib import Path
 
-# ---------------------------------------------------------------------
+
 # BASIC METADATA
-# ---------------------------------------------------------------------
+
 LIB_ID = "thompson"
 LIB_NAME = "Thompson Library"
 
-# ---------------------------------------------------------------------
+
 # CONFIGURATION
-# ---------------------------------------------------------------------
+
 # NOTE: No 6-seater tables anywhere per your requirement.
 
 # Floors 1–4: mixed layouts (individual + duo + group4 + study rooms)
@@ -35,9 +35,9 @@ LOWER_FLOOR_LAYOUTS = {
 # ~49 seats per floor (20*1 + 10*2 + 3*4 = 49)
 UPPER_FLOOR_PLAN = dict(ind=20, duo=10, g4=3)
 
-# ---------------------------------------------------------------------
+
 # OUTPUT CONTAINER
-# ---------------------------------------------------------------------
+
 OUT = {
     "libraryId": LIB_ID,
     "name": LIB_NAME,
@@ -60,7 +60,7 @@ def add_table(tables, floor_id, idx, ttype, cap, tags):
 
 def build_lower_floors():
     """
-    Floors 1–4 → collaborative floors with group areas and bookable rooms.
+    Floors 1-4 : collaborative floors with group areas and bookable rooms.
     """
     for level in range(1, 5):
         floor_id = f"F{level}"
@@ -82,7 +82,7 @@ def build_lower_floors():
 
 def build_upper_floors():
     """
-    Floors 5–11 → quiet floors with mostly 1- and 2-seaters, few 4-seaters.
+    Floors 5-11 : quiet floors with mostly 1- and 2-seaters, few 4-seaters.
     """
     for level in range(5, 12):
         floor_id = f"F{level}"
