@@ -1,0 +1,31 @@
+service: seatsense-api
+provider:
+  name: aws
+  runtime: nodejs20.x
+  region: us-east-1
+  environment:
+    TABLE_NAME: SeatSenseTable
+    AWS_REGION: ${self:provider.region}
+  httpApi:
+    cors:
+      allowedOrigins:
+        - https://zayed528.github.io
+      allowedMethods:
+        - GET
+        - OPTIONS
+      allowedHeaders:
+        - Content-Type
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:Scan
+      Resource:
+        - arn:aws:dynamodb:${self:provider.region}:*:table/SeatSenseTable
+
+functions:
+  getSummary:
+    handler: handler.getSummary
+    events:
+      - httpApi:
+          path: /summary
+          method: GET
