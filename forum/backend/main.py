@@ -213,6 +213,59 @@ async def delete_question(post_id: str):
         raise HTTPException(status_code=500, detail="Error deleting question")
 
 
+#  Library Tables API 
+@app.get("/api/library/tables")
+async def get_all_library_tables():
+    """Get all library tables from DynamoDB"""
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../app'))
+        from store_dynamo import get_all_tables
+        
+        tables = get_all_tables()
+        return {"tables": convert_decimals(tables), "count": len(tables)}
+    except Exception as e:
+        logger.error(f"Error getting all tables: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/library/tables/floor/{floor_id}")
+async def get_library_tables_by_floor(floor_id: str):
+    """Get all tables for a specific floor"""
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../app'))
+        from store_dynamo import get_floor_tables
+        
+        tables = get_floor_tables(floor_id)
+        return {"floorId": floor_id, "tables": convert_decimals(tables), "count": len(tables)}
+    except Exception as e:
+        logger.error(f"Error getting floor tables: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
+@app.get("/api/library/tables/{table_id}")
+async def get_library_table(table_id: str):
+    """Get a specific library table by ID"""
+    try:
+        import sys
+        import os
+        sys.path.insert(0, os.path.join(os.path.dirname(__file__), '../../app'))
+        from store_dynamo import get_table
+        
+        table = get_table(table_id)
+        if not table:
+            raise HTTPException(status_code=404, detail=f"Table {table_id} not found")
+        return convert_decimals(table)
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Error getting table: {e}")
+        raise HTTPException(status_code=500, detail=str(e))
+
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8001)

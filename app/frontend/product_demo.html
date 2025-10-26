@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Knowlton Hall - Seat Occupancy Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container">
+        <div class="nav">
+          <div class="logo">
+            <div class="logo-icon">S</div>
+            <span class="logo-text">SeatSense</span>
+          </div>
+          <h1 class="building-name">Thompson Library</h1>
+          <div class="live-indicator">
+            <span class="pulse"></span>
+            <span>Live</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Dashboard -->
+    <main class="dashboard">
+      <div class="container">
+        <!-- Overall Stats -->
+        <section class="overall-stats">
+          <h2 class="section-title">Building Overview</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-icon total">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <rect
+                    x="5"
+                    y="5"
+                    width="30"
+                    height="30"
+                    rx="4"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <circle cx="12" cy="12" r="2" fill="currentColor" />
+                  <circle cx="20" cy="12" r="2" fill="currentColor" />
+                  <circle cx="28" cy="12" r="2" fill="currentColor" />
+                  <circle cx="12" cy="20" r="2" fill="currentColor" />
+                  <circle cx="20" cy="20" r="2" fill="currentColor" />
+                  <circle cx="28" cy="20" r="2" fill="currentColor" />
+                  <circle cx="12" cy="28" r="2" fill="currentColor" />
+                  <circle cx="20" cy="28" r="2" fill="currentColor" />
+                  <circle cx="28" cy="28" r="2" fill="currentColor" />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 class="stat-value" id="totalSeats">-</h3>
+                <p class="stat-label">Total Seats</p>
+              </div>
+            </div>
+
+            <div class="stat-card available">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <circle
+                    cx="20"
+                    cy="20"
+                    r="15"
+                    stroke="currentColor"
+                    stroke-width="2"
+                  />
+                  <path
+                    d="M14 20L18 24L26 16"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 class="stat-value" id="availableSeats">-</h3>
+                <p class="stat-label">Available Seats</p>
+              </div>
+            </div>
+
+            <div class="stat-card occupied">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <circle cx="20" cy="14" r="6" fill="currentColor" />
+                  <path
+                    d="M20 22C13 22 9 25 9 31H31C31 25 27 22 20 22Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 class="stat-value" id="occupiedSeats">-</h3>
+                <p class="stat-label">Occupied Seats</p>
+              </div>
+            </div>
+
+            <div class="stat-card occupancy">
+              <div class="stat-icon">
+                <svg width="40" height="40" viewBox="0 0 40 40" fill="none">
+                  <path
+                    d="M20 5L23 15H33L25 21L28 31L20 25L12 31L15 21L7 15H17L20 5Z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </div>
+              <div class="stat-info">
+                <h3 class="stat-value" id="occupancyRate">-</h3>
+                <p class="stat-label">Occupancy Rate</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Floor Details -->
+        <section class="floor-section">
+          <h2 class="section-title">Floor Details</h2>
+          <div id="floorsContainer" class="floors-container">
+            <!-- Floors will be dynamically loaded here -->
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>Last updated: <span id="lastUpdated">-</span></p>
+        <p>&copy; 2025 SeatSense - Powered by Computer Vision</p>
+      </div>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

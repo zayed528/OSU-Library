@@ -80,6 +80,20 @@ def get_floor_tables(floor_id: str) -> List[dict]:
         return scan.get("Items", [])
 
 
+def get_all_tables() -> List[dict]:
+    """Get all library tables from DynamoDB.
+    
+    Returns a list of all table items. Use scan() for simplicity.
+    For large datasets, consider pagination.
+    """
+    try:
+        resp = tables_tbl.scan()
+        return resp.get("Items", [])
+    except Exception as e:
+        logger.error(f"Error scanning all tables: {e}")
+        return []
+
+
 def get_table(table_id: str) -> Optional[dict]:
     """Get a single table item by tableId (primary key).
 
