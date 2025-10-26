@@ -22,4 +22,4 @@ tinydb==4.8.2
 typing-inspection==0.4.2
 typing_extensions==4.15.0
 urllib3==2.5.0
-uvicorn==0.38.0
+Pillow==10.4.0
