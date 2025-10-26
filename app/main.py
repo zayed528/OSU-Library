@@ -28,10 +28,30 @@ import uvicorn
 log = logging.getLogger("library")
 logging.basicConfig(level=logging.INFO)
 
-from app.store_dynamo import (
-        get_floor_tables, get_table, save_table,
-        create_hold, get_hold, delete_hold, expire_holds
-)
+# Support running this file both as `python3 app/main.py` (from repo root)
+# and `python3 main.py` (from within the app/ folder).
+try:
+    # When executed from the repo root, use the package-qualified import
+    from app.store_dynamo import (  # type: ignore
+        get_floor_tables,
+        get_table,
+        save_table,
+        create_hold,
+        get_hold,
+        delete_hold,
+        expire_holds,
+    )
+except Exception:
+    # When executed from within the app/ folder
+    from store_dynamo import (
+        get_floor_tables,
+        get_table,
+        save_table,
+        create_hold,
+        get_hold,
+        delete_hold,
+        expire_holds,
+    )
 
 
 app = FastAPI(title="Thompson Library API (DynamoDB)")
@@ -228,5 +248,15 @@ def get_all_library_tables():
     return {"tables": all_tables}
 
 if __name__ == "__main__":
-    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    # Prefer using an import string so uvicorn's auto-reload works.
+    # Detect whether we're executed from repo root (package `app` available)
+    # or from inside the app/ folder.
+    import importlib
+    try:
+        importlib.import_module("app.main")
+        app_import = "app.main:app"
+    except Exception:
+        app_import = "main:app"
+    # Use 8000 for this service to avoid clashing with the forum backend (8001)
+    uvicorn.run(app_import, host="0.0.0.0", port=8000, reload=True)
     

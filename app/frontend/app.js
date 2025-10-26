@@ -1,5 +1,6 @@
 // API Configuration
-const API_BASE_URL = 'https://osu-library.onrender.com/api';
+// Point to local backend started by `python3 app/main.py` on port 8000
+const API_BASE_URL = 'http://127.0.0.1:8000/api';
 
 // Global state
 let allTables = [];
@@ -42,7 +43,7 @@ async function loadAllFloors() {
         
     } catch (error) {
         console.error('Error loading floors:', error);
-        showError('Could not connect to server. Make sure the backend is running on port 8001.');
+    showError('Could not connect to server. Make sure the backend is running on port 8000.');
     }
 }
 
@@ -289,7 +290,7 @@ function showError(message) {
             <p style="color: var(--light-gray); margin-top: 10px; font-size: 14px;">
                 Make sure the backend server is running:<br>
                 <code style="background: white; padding: 5px 10px; border-radius: 4px; display: inline-block; margin-top: 5px;">
-                    cd forum/backend && python3 main.py
+                    cd app && python3 main.py
                 </code>
             </p>
         </div>
