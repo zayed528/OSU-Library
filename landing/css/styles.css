@@ -184,6 +184,38 @@ body {
     line-height: 1.6;
 }
 
+.hero-cta {
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-flex;
+    align-items: center;
+    padding: 16px 32px;
+    background: var(--scarlet-red);
+    color: var(--white);
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+    transition: all 0.3s;
+    box-shadow: 0 4px 12px rgba(187, 0, 0, 0.3);
+}
+
+.cta-button:hover {
+    background: #990000;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(187, 0, 0, 0.4);
+}
+
+.cta-button svg {
+    transition: transform 0.3s;
+}
+
+.cta-button:hover svg {
+    transform: translateX(4px);
+}
+
 .hero-buttons {
     display: flex;
     gap: 20px;
