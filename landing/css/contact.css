@@ -76,6 +76,7 @@
     border: 4px solid var(--border-gray);
     transition: all 0.3s;
     overflow: hidden;
+    position: relative;
 }
 
 .team-card:hover .photo-placeholder {
@@ -86,6 +87,20 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+/* Zoom in on Akshat's photo more */
+.team-card:nth-child(2) .photo-placeholder img {
+    transform: scale(3);
+    object-position: center 35%;
+}
+
+.photo-placeholder svg {
+    flex-shrink: 0;
 }
 
 /* Team Info */
