@@ -16,12 +16,13 @@ Security note: environment configuration (region, table names) is read via
 environment variables. For local development you can use a `.env` file but
 never commit credentials to source control.
 """
-
 from fastapi import FastAPI, HTTPException, Query
 from typing import List, Optional
 from pydantic import BaseModel
 import logging
 from botocore.exceptions import ClientError
+import uvicorn
+
 
 log = logging.getLogger("library")
 logging.basicConfig(level=logging.INFO)
@@ -195,3 +196,6 @@ def get_hold_debug(hold_id: str):
         raise HTTPException(404, "Hold not found (may have expired)")
     return h    
 
+if __name__ == "__main__":
+    uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
+    
