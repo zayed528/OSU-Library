@@ -107,6 +107,11 @@ class ConfirmRequest(BaseModel):
     isOpenToJoin: bool = False
 
 # -------- Routes --------
+@app.get("/")
+def root():
+    """Root endpoint for health checks"""
+    return {"status": "online", "service": "Thompson Library API"}
+
 @app.get("/health")
 def health():
     # Run a best-effort sweep for expired holds when the health check is
