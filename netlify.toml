@@ -2,12 +2,58 @@
   command = ""
   publish = "."
 
+# Redirect root to landing page
 [[redirects]]
   from = "/"
   to = "/landing/index.html"
   status = 200
 
+# Redirect /demo to dashboard
 [[redirects]]
   from = "/demo"
   to = "/app/frontend/product_demo.html"
   status = 200
+
+# Redirect /dashboard to dashboard
+[[redirects]]
+  from = "/dashboard"
+  to = "/app/frontend/product_demo.html"
+  status = 200
+
+# Redirect /forum to forum
+[[redirects]]
+  from = "/forum"
+  to = "/forum/frontend/index.html"
+  status = 200
+
+# Redirect /contact to contact page
+[[redirects]]
+  from = "/contact"
+  to = "/landing/contact.html"
+  status = 200
+
+# SPA fallback for landing pages
+[[redirects]]
+  from = "/landing/*"
+  to = "/landing/:splat"
+  status = 200
+
+# SPA fallback for app
+[[redirects]]
+  from = "/app/*"
+  to = "/app/:splat"
+  status = 200
+
+# SPA fallback for forum
+[[redirects]]
+  from = "/forum/*"
+  to = "/forum/:splat"
+  status = 200
+
+# Headers for CORS (needed for API calls)
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS"
+    Access-Control-Allow-Headers = "Content-Type"
