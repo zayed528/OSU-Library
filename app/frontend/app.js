@@ -1,5 +1,5 @@
 // API Configuration
-const API_BASE_URL = 'http://localhost:8001/api';
+const API_BASE_URL = 'http://ec2-3-88-105-206.compute-1.amazonaws.com:8001/api';
 
 // Global state
 let allTables = [];
