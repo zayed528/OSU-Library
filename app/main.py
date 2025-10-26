@@ -17,6 +17,7 @@ environment variables. For local development you can use a `.env` file but
 never commit credentials to source control.
 """
 from fastapi import FastAPI, HTTPException, Query
+from fastapi.middleware.cors import CORSMiddleware
 from typing import List, Optional
 from pydantic import BaseModel
 import logging
@@ -34,6 +35,20 @@ from app.store_dynamo import (
 
 
 app = FastAPI(title="Thompson Library API (DynamoDB)")
+
+# Add CORS middleware to allow Netlify frontend to access API
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "https://seatsenseproto.netlify.app",
+        "http://localhost:3000",
+        "http://127.0.0.1:5500",
+        "*"  # Allow all origins during development (remove in production)
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 # -------- Pydantic schemas (for docs/validation) --------
 class Seat(BaseModel):
@@ -195,6 +210,17 @@ def get_hold_debug(hold_id: str):
     if not h:
         raise HTTPException(404, "Hold not found (may have expired)")
     return h    
+
+# API endpoint for frontend dashboard
+@app.get("/api/library/tables")
+def get_all_library_tables():
+    """Get all library tables across all floors for the dashboard."""
+    all_tables = []
+    for floor_num in range(1, 12):  # Floors 1-11
+        floor_id = f"F{floor_num}"
+        tables = get_floor_tables(floor_id)
+        all_tables.extend(tables)
+    return {"tables": all_tables}
 
 if __name__ == "__main__":
     uvicorn.run("app.main:app", host="0.0.0.0", port=8000, reload=True)
