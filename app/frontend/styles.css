@@ -75,6 +75,37 @@ body {
     color: var(--dark-gray);
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.forum-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: var(--bg-gray);
+    border-radius: 8px;
+    color: var(--dark-gray);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: all 0.3s;
+    border: 2px solid transparent;
+}
+
+.forum-link:hover {
+    background: #FFE5E5;
+    border-color: var(--scarlet-red);
+    color: var(--scarlet-red);
+}
+
+.forum-link svg {
+    flex-shrink: 0;
+}
+
 .live-indicator {
     display: flex;
     align-items: center;
@@ -300,6 +331,50 @@ body {
 
 .floor-card.expanded .tables-section {
     display: block;
+}
+
+/* Wing Sections */
+.wing-section {
+    margin-bottom: 32px;
+}
+
+.wing-section:last-child {
+    margin-bottom: 0;
+}
+
+.wing-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid var(--scarlet-red);
+}
+
+.wing-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--dark-gray);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.wing-title::before {
+    content: '📍';
+    font-size: 18px;
+}
+
+.wing-stats {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.wing-stat-item {
+    font-size: 14px;
+    color: var(--light-gray);
+    white-space: nowrap;
 }
 
 .tables-grid {

@@ -100,8 +100,14 @@ function renderFloors(floorData) {
     const container = document.getElementById('floorsContainer');
     container.innerHTML = '';
     
-    // Sort floor IDs numerically (F1, F2, F3, etc.)
-    const sortedFloorIds = Object.keys(floorData).sort((a, b) => {
+    // Filter to only include floors 1-11
+    const validFloors = ['F1', 'F2', 'F3', 'F4', 'F5', 'F6', 'F7', 'F8', 'F9', 'F10', 'F11'];
+    const filteredFloorIds = Object.keys(floorData).filter(floorId => 
+        validFloors.includes(floorId)
+    );
+    
+    // Sort floor IDs numerically (F1, F2, F3, F4, etc.)
+    const sortedFloorIds = filteredFloorIds.sort((a, b) => {
         // Extract numbers from floor IDs (e.g., "F1" -> 1, "F2" -> 2)
         const numA = parseInt(a.replace(/\D/g, '')) || 0;
         const numB = parseInt(b.replace(/\D/g, '')) || 0;
@@ -117,6 +123,19 @@ function renderFloors(floorData) {
     });
 }
 
+// Divide tables into wings (West 40%, Center 20%, East 40%)
+function divideIntoWings(tables) {
+    const totalTables = tables.length;
+    const westCount = Math.floor(totalTables * 0.4);
+    const centerCount = Math.floor(totalTables * 0.2);
+    
+    return {
+        west: tables.slice(0, westCount),
+        center: tables.slice(westCount, westCount + centerCount),
+        east: tables.slice(westCount + centerCount)
+    };
+}
+
 // Create floor card element
 function createFloorCard(floorId, tables, stats) {
     const card = document.createElement('div');
@@ -126,6 +145,28 @@ function createFloorCard(floorId, tables, stats) {
     // Format floor name: "F1" -> "Floor 1", "F2" -> "Floor 2"
     const floorNumber = floorId.replace(/\D/g, ''); // Extract numbers only
     const floorDisplayName = `Floor ${floorNumber}`;
+    
+    // Only divide into wings for floors 1-4
+    const floorsWithWings = ['F1', 'F2', 'F3', 'F4'];
+    const useWings = floorsWithWings.includes(floorId);
+    
+    let tablesContent;
+    if (useWings) {
+        // Divide tables into wings for floors 1-4
+        const wings = divideIntoWings(tables);
+        tablesContent = `
+            ${renderWing('West Wing', wings.west)}
+            ${renderWing('Center', wings.center)}
+            ${renderWing('East Wing', wings.east)}
+        `;
+    } else {
+        // Show tables normally for floors 5-11
+        tablesContent = `
+            <div class="tables-grid">
+                ${tables.map(table => createTableCard(table)).join('')}
+            </div>
+        `;
+    }
     
     card.innerHTML = `
         <div class="floor-header" onclick="toggleFloor('${floorId}')">
@@ -155,13 +196,40 @@ function createFloorCard(floorId, tables, stats) {
             </svg>
         </div>
         <div class="tables-section">
+            ${tablesContent}
+        </div>
+    `;
+    
+    return card;
+}
+
+// Render a wing section
+function renderWing(wingName, tables) {
+    if (tables.length === 0) return '';
+    
+    const wingStats = calculateStats(tables);
+    
+    return `
+        <div class="wing-section">
+            <div class="wing-header">
+                <h4 class="wing-title">${wingName}</h4>
+                <div class="wing-stats">
+                    <span class="wing-stat-item">
+                        <span style="color: var(--green); font-weight: 700;">${wingStats.availableSeats}</span> Available
+                    </span>
+                    <span class="wing-stat-item">
+                        <span style="color: var(--scarlet-red); font-weight: 700;">${wingStats.occupiedSeats}</span> Occupied
+                    </span>
+                    <span class="wing-stat-item">
+                        <span style="font-weight: 700;">${tables.length}</span> Tables
+                    </span>
+                </div>
+            </div>
             <div class="tables-grid">
                 ${tables.map(table => createTableCard(table)).join('')}
             </div>
         </div>
     `;
-    
-    return card;
 }
 
 // Create table card HTML

@@ -79,9 +79,11 @@ if __name__ == "__main__":
 
     # Example: post-CV mapping
     # IMG_5159 Medium.jpeg -> F1-T02 (chairs 0,1 occupied)
-    update_table_with_occupied_chairs("F1-T02", [0, 1])
+    # Hardcoded based on visual inspection of images
+    update_table_with_occupied_chairs("F1-T02", [0])
 
     # IMG_5168 Medium.jpeg -> F1-T03 (chair 0 occupied)
+    # Hardcoded based on visual inspection of images
     update_table_with_occupied_chairs("F1-T03", [0])
 
     # Example reset (optional)
