@@ -203,4 +203,4 @@ PRs and issues welcome. Please open an issue to discuss major changes first.
 - Akshat Satyadev
 
 ## License
-MIT
+MIT 
