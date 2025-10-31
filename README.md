@@ -1,4 +1,4 @@
-# SeatSense (OSU-Library)
+# SeatSense 
 
 SeatSense helps patrons find open seats in the Thompson Library with a real‑time dashboard powered by Computer Vision. It includes:
 - A Library API that serves occupancy data from DynamoDB.
@@ -75,8 +75,8 @@ OSU-Library/
 ## Installation
 ```bash
 # clone
-git clone https://github.com/zayed528/OSU-Library.git
-cd OSU-Library
+git clone https://github.com/zayed528/SeatSense.git
+cd SeatSense
 
 # create virtual env
 python3 -m venv .venv
