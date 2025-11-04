@@ -199,7 +199,7 @@ What it does:
 PRs and issues welcome. Please open an issue to discuss major changes first.
 
 ## Authors
-- Zayed Ali
+- Zayed Ali 
 - Akshat Satyadev
 
 ## License
